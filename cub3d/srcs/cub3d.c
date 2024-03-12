@@ -1,11 +1,11 @@
 #include "../include/cub3d.h"
 
-int	handle_key(t_cub3d *game)
+int	handle_key(t_cub3d *cub3d)
 {
-	exit (ft_freegame(game, "Exit: RED CROSS\n"));
+	exit (ft_freegame(cub3d, "Exit: RED CROSS\n"));
 }
 
-int	handle_keypress(int keysym, t_cub3d *game)
+int	handle_keypress(int keysym, t_cub3d *cub3d)
 {
 	// t_vector	pos;
 	int			i;
@@ -13,52 +13,28 @@ int	handle_keypress(int keysym, t_cub3d *game)
 	i = 0;
     //movement here
 	if (keysym == XK_Escape)
-		exit (ft_freegame(game, "Exit: ESC\n"));
-	if (i == -1)
-		exit (ft_freegame(game, "Exit: Game end!\n"));
+		exit (ft_freegame(cub3d, "Exit: ESC\n"));
 	return (i);
 }
 
-void	*display_game(t_cub3d *game)
+void	*display_game(t_cub3d *cub3d)
 {
-    t_vec   test;
+	int	x;
 
-    test.x = 0;
-    test.y = 0;
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.ea.pointer, 10, 10);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.ea.pointer, 74, 10);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.ea.pointer, 138, 10);
-
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.no.pointer, 10, 84);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.no.pointer, 74, 84);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.no.pointer, 138, 84);
-
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.so.pointer, 10, 158);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.so.pointer, 74, 158);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.so.pointer, 138, 158);
-
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.we.pointer, 10, 232);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.we.pointer, 74, 232);
-    mlx_put_image_to_window(game->ptr, game->win,
-					game->tex.we.pointer, 138, 232);
-
-	return (game->ptr);
+	x = 0;
+	while (x < cub3d->map_w)
+	{
+		cub3d->camera_x = 2 * x / cub3d->map_w - 1;
+		cub3d->ray_dirx = cub3d->dir_x + cub3d->plane_x * cub3d->camera_x;
+		cub3d->ray_diry = cub3d->dir_y + cub3d->plane_y * cub3d->camera_x;
+		
+	}
+	return (cub3d->ptr);
 }
 
-void	render(t_cub3d game)
+void	render(t_cub3d cub3d)
 {
-	display_game(&game);
+	display_game(&cub3d);
 }
 
 int	update(t_cub3d *cub3d)

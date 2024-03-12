@@ -69,6 +69,21 @@ typedef struct s_cub3d
 	t_player	player;
 	t_dir		dir;
 
+	double		time;
+	double		oldtime;
+
+	double		plane_x;
+	double		plane_y;
+
+	double		dir_x;
+	double		dir_y;
+
+	double		camera_x;
+	double		ray_dirx;
+	double		ray_diry;
+
+	double		map_w;
+
 }	t_cub3d;
 
 //libft NORM OK

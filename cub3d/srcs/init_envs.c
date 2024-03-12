@@ -9,6 +9,12 @@ void	ft_set_null(t_cub3d *data)
 	data->tex.c_color = -1;
 	data->tex.c_color = -1;
 	data->map = NULL;
+	data->time = 0;
+	data->oldtime = 0;
+	data->dir_x = -1;
+	data->dir_y = 0;
+	data->plane_x = 0;
+	data->plane_y = 0.66;
 }
 
 int	ft_initdata(t_cub3d *cub3d, char **tmp)
