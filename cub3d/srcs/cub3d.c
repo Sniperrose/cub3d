@@ -49,7 +49,7 @@ int ft_raycast(t_cub3d cub3d)
     // raycast(cub3d);
     mlx_hook(cub3d.win, KeyPress, KeyPressMask, &handle_keypress, &cub3d);
 	mlx_hook(cub3d.win, 17, 1L << 19, &handle_key, &cub3d);
-	mlx_loop_hook(cub3d.ptr, update, (void *)&cub3d);
+	// mlx_loop_hook(cub3d.ptr, update, (void *)&cub3d);
 	mlx_loop(cub3d.ptr);
     return (0);
 }

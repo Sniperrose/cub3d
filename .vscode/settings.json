@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "alloca.h": "c",
+        "sdl_blendmode.h": "c",
+        "sdl_events.h": "c",
+        "sdl_keycode.h": "c",
+        "sdl_pen.h": "c",
+        "sdl_oldnames.h": "c"
+    }
+}
