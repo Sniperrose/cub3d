@@ -20,14 +20,112 @@ int	handle_keypress(int keysym, t_cub3d *cub3d)
 void	*display_game(t_cub3d *cub3d)
 {
 	int	x;
+	int	hit;
+	int	side;
 
 	x = 0;
-	while (x < cub3d->map_w)
+	while (x < SW)
 	{
-		cub3d->camera_x = 2 * x / cub3d->map_w - 1;
+		cub3d->camera_x = 2 * x / SW - 1;
 		cub3d->ray_dirx = cub3d->dir_x + cub3d->plane_x * cub3d->camera_x;
 		cub3d->ray_diry = cub3d->dir_y + cub3d->plane_y * cub3d->camera_x;
 		
+		cub3d->mapX = cub3d->player.p.x;
+		cub3d->mapY = cub3d->player.p.y;
+
+		if (cub3d->ray_dirx == 0)
+			cub3d->ray_dirx = 1e30;
+		cub3d->deltaDistX = abs(1 / cub3d->ray_dirx);
+		if (cub3d->ray_diry == 0)
+			cub3d->ray_diry = 1e30;
+		cub3d->deltaDistY = abs(1 / cub3d->ray_diry);
+
+		hit = 0;
+
+		if (cub3d->ray_dirx < 0)
+		{
+			cub3d->step.x = -1;
+			cub3d->sideDistX = (cub3d->player.p.x - cub3d->mapX) * cub3d->deltaDistX;
+		}
+		else
+		{
+			cub3d->step.x = 1;
+			cub3d->sideDistX = (cub3d->mapX + 1.0 - cub3d->player.p.x) * cub3d->deltaDistX;
+		}
+		if (cub3d->ray_diry < 0)
+		{
+			cub3d->step.y = -1;
+			cub3d->sideDistY = (cub3d->player.p.y - cub3d->mapY) * cub3d->deltaDistY;
+		}
+		else
+		{
+			cub3d->step.y = 1;
+			cub3d->sideDistY = (cub3d->mapY + 1.0 - cub3d->player.p.y) * cub3d->deltaDistY;
+		}
+		
+		while (hit == 0)
+		{
+			if(cub3d->sideDistX < cub3d->sideDistY)
+			{
+				cub3d->sideDistX += cub3d->deltaDistX;
+				cub3d->mapX += cub3d->step.x;
+				side = 0;
+			}
+			else
+			{
+				cub3d->sideDistY += cub3d->deltaDistY;
+				cub3d->mapY += cub3d->step.y;
+				side = 1;
+			}
+			if(cub3d->map[cub3d->mapX][cub3d->mapY] > 0)
+				hit = 1;
+		}
+		
+		if (side == 0)
+			cub3d->perpWallDist = (cub3d->sideDistX - cub3d->deltaDistX);
+		else
+			cub3d->perpWallDist = (cub3d->sideDistY - cub3d->deltaDistY);
+
+		int lineHeight = (int)(SH / cub3d->perpWallDist);
+
+		int	pitch = 100;
+
+		int	drawStart = -lineHeight / 2 + SH / 2 + pitch;
+		if (drawStart < 0)
+			drawStart = 0;
+		int drawEnd = lineHeight / 2 + SH / 2 + pitch;
+		if (drawEnd >= SH)
+			drawEnd = SH - 1;
+
+		int	texNum = cub3d->map[cub3d->mapX][cub3d->mapY] - 1;
+
+		double	wallX;
+		if (side == 0)
+			wallX = cub3d->player.p.y + cub3d->perpWallDist * cub3d->ray_diry;
+		else
+			wallX = cub3d->player.p.x + cub3d->perpWallDist * cub3d->ray_dirx; 
+		wallX -= floor((wallX));
+
+		int	texX = wallX * TEXW;
+		if (side == 0 && cub3d->ray_dirx > 0)
+			texX = TEXW - texX - 1;
+		if (side == 1 && cub3d->ray_diry < 0)
+			texX = TEXW - texX - 1;
+
+		double	step = 1.0 * TEXH / lineHeight;
+
+		double	texPos = (drawStart - pitch - SH / 2 + lineHeight / 2) * step;
+		int y = drawStart;
+		while (y < drawEnd)
+		{
+			int	texY = (int)texPos & (TEXH - 1);
+			texPos += step;
+			color = texture()
+			y++;
+		}
+		
+
+		x++;
 	}
 	return (cub3d->ptr);
 }

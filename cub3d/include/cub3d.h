@@ -82,7 +82,17 @@ typedef struct s_cub3d
 	double		ray_dirx;
 	double		ray_diry;
 
-	double		map_w;
+	double		sideDistX;
+	double		sideDistY;
+
+	double		deltaDistX;
+	double		deltaDistY;
+
+	double		perpWallDist;
+	// t_vec		map_box;
+	int			mapX;
+	int			mapY;
+	t_vec		step;
 
 }	t_cub3d;
 
