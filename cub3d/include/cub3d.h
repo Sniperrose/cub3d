@@ -78,22 +78,6 @@ typedef struct s_cub3d
 	double		dir_x;
 	double		dir_y;
 
-	double		camera_x;
-	double		ray_dirx;
-	double		ray_diry;
-
-	double		sideDistX;
-	double		sideDistY;
-
-	double		deltaDistX;
-	double		deltaDistY;
-
-	double		perpWallDist;
-	// t_vec		map_box;
-	int			mapX;
-	int			mapY;
-	t_vec		step;
-
 }	t_cub3d;
 
 //libft NORM OK
