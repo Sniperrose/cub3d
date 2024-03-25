@@ -36,7 +36,7 @@ typedef struct s_image
 	t_vec	size;
 }		t_image;
 
-typedef struct s_texure
+typedef struct	s_texure
 {
 	t_image	no;
 	t_image	so;
@@ -46,7 +46,15 @@ typedef struct s_texure
 	int		c_color;
 }	t_texure;
 
-typedef	struct s_player
+typedef struct	s_minimap
+{
+	t_image	wall;
+	t_image	icon;
+	t_image	space;
+}	t_minimap;
+
+
+typedef	struct	s_player
 {
 	t_vec	p;
 	char	start_dir;
@@ -67,14 +75,13 @@ typedef struct s_cub3d
     t_texure	tex;
     char		**map;
 	t_player	player;
-	t_dir		dir;
+	t_minimap	mini;
 
+	t_dir		dir;
 	double		time;
 	double		oldtime;
-
 	double		plane_x;
 	double		plane_y;
-
 	double		dir_x;
 	double		dir_y;
 

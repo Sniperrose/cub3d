@@ -30,6 +30,12 @@ void	ft_free_texure(t_cub3d *cub3d)
 		mlx_destroy_image(cub3d->ptr, cub3d->tex.so.pointer);
 	if (cub3d->tex.we.pointer)
 		mlx_destroy_image(cub3d->ptr, cub3d->tex.we.pointer);
+	if (cub3d->mini.icon.pointer)
+		mlx_destroy_image(cub3d->ptr, cub3d->mini.icon.pointer);
+	if (cub3d->mini.wall.pointer)
+		mlx_destroy_image(cub3d->ptr, cub3d->mini.wall.pointer);
+	if (cub3d->mini.space.pointer)
+		mlx_destroy_image(cub3d->ptr, cub3d->mini.space.pointer);
 }
 
 int	ft_freegame(t_cub3d *cub3d, char *str)

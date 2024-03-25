@@ -36,9 +36,51 @@ void	*display_game(t_cub3d *cub3d)
 	return (cub3d->ptr);
 }
 
+void	*display_minimap(t_cub3d *game)
+{
+	t_vec	m;
+	t_vec	d;
+
+	m.x = 0;
+	d.x = 0;
+	d.y = 0;
+	while (game->map[m.x])
+	{
+		m.y = 0;
+		while (game->map[m.x][m.y] != '\0')
+		{
+			if (game->map[m.x][m.y] == '1')
+				mlx_put_image_to_window(game->ptr, game->win,
+					game->mini.wall.pointer, d.x, d.y);
+			else
+				mlx_put_image_to_window(game->ptr, game->win,
+					game->mini.space.pointer, d.x, d.y);
+			d.x += 16;
+			m.y++;
+		}
+		d.x = 0;
+		d.y += 16;
+		m.x++;
+	}
+	return (game->ptr);
+}
+
+void	*display_player(t_cub3d *game)
+{
+	int	x;
+	int	y;
+
+	x = game->player.p.x * 16;
+	y = game->player.p.y * 16;
+	mlx_put_image_to_window(game->ptr, game->win, game->mini.icon.pointer, x, y);
+	return (game->ptr);
+}
+
 void	render(t_cub3d cub3d)
 {
-	display_game(&cub3d);
+	// display_game(&cub3d);
+	display_minimap(&cub3d);
+	display_player(&cub3d);
 }
 
 int	update(t_cub3d *cub3d)

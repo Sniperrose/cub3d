@@ -1,7 +1,9 @@
 /* XPM */
-static char * miniwall_xpm[] = {
-"16 16 1 1",
-" 	c #353333",
+static char *d7e0d6786eda4241a65d90b832f13e360ZDyxj5aJIOLeFiv[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 1 1 ",
+"  c black",
+/* pixels */
 "                ",
 "                ",
 "                ",
@@ -17,4 +19,5 @@ static char * miniwall_xpm[] = {
 "                ",
 "                ",
 "                ",
-"                "};
+"                "
+};
