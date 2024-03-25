@@ -13,21 +13,18 @@ int	ft_move_test(t_cub3d *cub3d, char *str)
 
 int	handle_keypress(int keysym, t_cub3d *cub3d)
 {
-	int			i;
-
-	i = 0;
 	mlx_clear_window(cub3d->ptr, cub3d->win);
 	if (keysym == XK_d || keysym == XK_D)
-		i = ft_move_test(cub3d, "rigth");
+		cub3d->player.p.x += 1;
 	else if (keysym == XK_W || keysym == XK_w)
-		i = ft_move_test(cub3d, "up");
+		cub3d->player.p.y -= 1;
 	else if (keysym == XK_A || keysym == XK_a)
-		i = ft_move_test(cub3d, "left");
+		cub3d->player.p.x -= 1;
 	else if (keysym == XK_S || keysym == XK_s)
-		i = ft_move_test(cub3d, "down");
+		cub3d->player.p.y += 1;
 	if (keysym == XK_Escape)
 		exit (ft_freegame(cub3d, "Exit: ESC\n"));
-	return (i);
+	return (1);
 }
 
 void	*display_game(t_cub3d *cub3d)
