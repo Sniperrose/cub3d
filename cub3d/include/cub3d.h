@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/28 22:26:04 by galtange          #+#    #+#             */
+/*   Updated: 2024/03/28 22:31:24 by galtange         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -36,7 +48,7 @@ typedef struct s_image
 	t_vec	size;
 }		t_image;
 
-typedef struct	s_texure
+typedef struct s_texure
 {
 	t_image	no;
 	t_image	so;
@@ -46,18 +58,19 @@ typedef struct	s_texure
 	int		c_color;
 }	t_texure;
 
-typedef struct	s_minimap
+typedef struct s_minimap
 {
 	t_image	wall;
 	t_image	icon;
 	t_image	space;
 }	t_minimap;
 
-
-typedef	struct	s_player
+typedef struct s_player
 {
 	t_vec	p;
 	char	start_dir;
+	float	pos_x;
+	float	pos_y;
 }	t_player;
 
 typedef struct s_dir
@@ -72,11 +85,10 @@ typedef struct s_cub3d
 {
 	void		*ptr;
 	void		*win;
-    t_texure	tex;
-    char		**map;
+	t_texure	tex;
+	char		**map;
 	t_player	player;
 	t_minimap	mini;
-
 	t_dir		dir;
 	double		time;
 	double		oldtime;
@@ -113,8 +125,8 @@ t_image	ft_new_sprite(void *ptr, char *path);
 int		ft_freegame(t_cub3d *cub3d, char *str);
 //read_mapfile done NORM OK
 int		check_map_ext(char *str);
-size_t  ft_mapfile_size(char *src);
-char    **ft_copy_mapfile(int fd, size_t size);
+size_t	ft_mapfile_size(char *src);
+char	**ft_copy_mapfile(int fd, size_t size);
 char	**ft_readmapfile(char *src);
 //init_texure DONE NORM_OK
 int		ft_rgb2hex(int r, int g, int b);
@@ -133,12 +145,13 @@ int		ft_checkwall(char **tmp, size_t size, char c);
 int		ft_validmap(char **map, char c);
 int		ft_check_map(char **map, t_cub3d *cub3d);
 //free
-void    ft_free(char **src);
+void	ft_free(char **src);
 void	ft_free_texure(t_cub3d *cub3d);
 //init_envs
 void	ft_set_null(t_cub3d *data);
 int		ft_initdata(t_cub3d *cub3d, char **tmp);
 //cub3d
-int ft_raycast(t_cub3d cub3d);
-
+int		ft_raycast(t_cub3d cub3d);
+//minimap
+void	*display_minimap(t_cub3d *game);
 #endif

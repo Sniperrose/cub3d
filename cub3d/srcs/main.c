@@ -6,18 +6,14 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 20:01:18 by galtange          #+#    #+#             */
-/*   Updated: 2024/03/05 20:03:26 by galtange         ###   ########.fr       */
+/*   Updated: 2024/03/28 22:11:05 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-
 int	ft_initmini(t_cub3d *cub3d)
 {
-	cub3d->mini.icon.pointer = NULL;
-	cub3d->mini.space.pointer = NULL;
-	cub3d->mini.wall.pointer = NULL;
 	cub3d->mini.icon = ft_new_sprite(cub3d->ptr, "texure/minimap/icon.xpm");
 	cub3d->mini.wall = ft_new_sprite(cub3d->ptr, "texure/minimap/wall.xpm");
 	cub3d->mini.space = ft_new_sprite(cub3d->ptr, "texure/minimap/space.xpm");

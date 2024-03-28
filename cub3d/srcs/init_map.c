@@ -6,7 +6,7 @@
 /*   By: galtange <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 18:10:36 by galtange          #+#    #+#             */
-/*   Updated: 2024/03/05 18:12:21 by galtange         ###   ########.fr       */
+/*   Updated: 2024/03/28 22:11:54 by galtange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_getmap(char **tmp, int size)
 	map = (char **)malloc((size + 1) * sizeof(char *));
 	if (!map)
 		return (NULL);
-	while (tmp[i] && i < size)
+	while (tmp[i] && ft_str_is_printable(tmp[i]) && i < size)
 	{
 		map[i] = ft_strdup(tmp[i]);
 		if (!map[i])
@@ -68,6 +68,7 @@ int	ft_initmap(t_cub3d *cub3d, char **tmp)
 {
 	int	i;
 	int	size;
+	int	x;
 
 	i = 0;
 	size = 0;
@@ -79,6 +80,11 @@ int	ft_initmap(t_cub3d *cub3d, char **tmp)
 	if (!cub3d->map)
 		return (0);
 	if (!ft_check_map(cub3d->map, cub3d))
+		return (0);
+	x = 0;
+	while (cub3d->map[x])
+		x++;
+	if (tmp[i + x])
 		return (0);
 	return (1);
 }

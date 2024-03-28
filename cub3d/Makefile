@@ -8,6 +8,7 @@ SRCS =	read_mapfile.c\
 		init_map.c\
 		init_map2.c\
 		cub3d.c\
+		minimap.c\
 
 
 OBJS = ${addprefix ${SRCS_DIR}, ${SRCS:.c=.o}}
