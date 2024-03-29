@@ -12,6 +12,18 @@
 
 #include "../include/cub3d.h"
 
+void	ft_init_rays(t_cub3d *data)
+{
+	data->r.posX = (double)data->player.p.x;
+	data->r.posY = (double)data->player.p.y;
+	data->r.dirX = -1;
+	data->r.dirY = 0;
+	data->r.planeX = 0;
+	data->r.planeY = 0.66;
+	gettimeofday(&data->time, NULL);
+	// data->oldTime = 0;
+}
+
 void	ft_set_null(t_cub3d *data)
 {
 	data->tex.ea.pointer = NULL;
@@ -24,12 +36,6 @@ void	ft_set_null(t_cub3d *data)
 	data->tex.c_color = -1;
 	data->tex.c_color = -1;
 	data->map = NULL;
-	data->time = 0;
-	data->oldtime = 0;
-	data->dir_x = -1;
-	data->dir_y = 0;
-	data->plane_x = 0;
-	data->plane_y = 0.66;
 }
 
 int	ft_initdata(t_cub3d *cub3d, char **tmp)
@@ -49,7 +55,10 @@ int	ft_initdata(t_cub3d *cub3d, char **tmp)
 	if (!ft_initmap(cub3d, tmp))
 		return (ft_error("Map init failed! "));
 	printf("... init map success\n");
-	cub3d->player.pos_x = cub3d->player.p.x + 0.25;
-	cub3d->player.pos_y = cub3d->player.p.y + 0.25;
+	// cub3d->r.posX = cub3d->player.p.x + 0.25;
+	// cub3d->r.posY = cub3d->player.p.y + 0.25;
+	// cub3d->player.pos_x = cub3d->player.p.x + 0.25;
+	// cub3d->player.pos_y = cub3d->player.p.y + 0.25;
+	ft_init_rays(cub3d);
 	return (0);
 }

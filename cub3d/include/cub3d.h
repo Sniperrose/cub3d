@@ -22,6 +22,7 @@
 # include "../minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <sys/time.h>
 
 # define SW 640
 # define SH 480
@@ -69,8 +70,8 @@ typedef struct s_player
 {
 	t_vec	p;
 	char	start_dir;
-	float	pos_x;
-	float	pos_y;
+	double	pos_x;
+	double	pos_y;
 }	t_player;
 
 typedef struct s_dir
@@ -81,6 +82,36 @@ typedef struct s_dir
 	t_vec	back;
 }	t_dir;
 
+typedef struct s_ray
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	cameraX;
+	double	rayDirx;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double sideDistX;
+    double sideDistY;
+	double deltaDistX;
+	double deltaDistY;
+	double perpWallDist;
+	int stepX;
+    int stepY;
+}	t_ray;
+
+typedef struct s_draw
+{
+	int lineHeight;
+	int drawStart;
+	int drawEnd;
+}	t_draw;
+
+
 typedef struct s_cub3d
 {
 	void		*ptr;
@@ -89,14 +120,15 @@ typedef struct s_cub3d
 	char		**map;
 	t_player	player;
 	t_minimap	mini;
-	t_dir		dir;
-	double		time;
-	double		oldtime;
-	double		plane_x;
-	double		plane_y;
-	double		dir_x;
-	double		dir_y;
-
+	t_ray		r;
+	t_draw		d;
+	struct timeval	time;
+	struct timeval	oldTime;
+	int			hit;
+	int			side;
+	double		frameTime;
+	double		moveSpeed;
+	double		rotSpeed;
 }	t_cub3d;
 
 //libft NORM OK
