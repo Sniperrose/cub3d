@@ -16,10 +16,28 @@ void	ft_init_rays(t_cub3d *data)
 {
 	data->r.posX = (double)data->player.p.x;
 	data->r.posY = (double)data->player.p.y;
-	data->r.dirX = -1;
-	data->r.dirY = 0;
 	data->r.planeX = 0;
 	data->r.planeY = 0.66;
+	if (data->player.start_dir == 'W')
+	{
+		data->r.dirX = -1;
+		data->r.dirY = 0;
+	}
+	if (data->player.start_dir == 'N')
+	{
+		data->r.dirX = 0;
+		data->r.dirY = -1;
+	}
+	if (data->player.start_dir == 'E')
+	{
+		data->r.dirX = 1;
+		data->r.dirY = 0;
+	}
+	if (data->player.start_dir == 'S')
+	{
+		data->r.dirX = 0;
+		data->r.dirY = 1;
+	}
 	gettimeofday(&data->time, NULL);
 	// data->oldTime = 0;
 }
@@ -55,10 +73,6 @@ int	ft_initdata(t_cub3d *cub3d, char **tmp)
 	if (!ft_initmap(cub3d, tmp))
 		return (ft_error("Map init failed! "));
 	printf("... init map success\n");
-	// cub3d->r.posX = cub3d->player.p.x + 0.25;
-	// cub3d->r.posY = cub3d->player.p.y + 0.25;
-	// cub3d->player.pos_x = cub3d->player.p.x + 0.25;
-	// cub3d->player.pos_y = cub3d->player.p.y + 0.25;
 	ft_init_rays(cub3d);
 	return (0);
 }

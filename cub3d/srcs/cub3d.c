@@ -23,37 +23,16 @@ int	ft_move_test(t_cub3d *cub3d, char *str)
 	return (1);
 }
 
-void	ft_move_up(char **map, t_cub3d *data, double moveSpeed)
+void	ft_move_up(char **map, t_cub3d *cub3d, double moveSpeed)
 {
-	// data->r.posY -= 0.5;
-
-	// (void) map;
-	// (void) moveSpeed;
-	if(map[(int)(data->r.posX + data->r.dirX * moveSpeed)][(int)data->r.posY] == 0) 
-		data->r.posX += data->r.dirX * moveSpeed * 16;
-    if(map[(int)(data->r.posX)][(int)(data->r.posY + data->r.dirY * moveSpeed)] == 0)
-		data->r.posY += data->r.dirY * moveSpeed * 16;
-	printf("posX = %f ", data->r.posX);
-	printf("posY = %f\n", data->r.posY);
-
-	printf("dirX = %f && dirX * MS = %f\n", data->r.dirX, data->r.dirX * moveSpeed);
-	printf("dirY = %f \n", data->r.dirY);
-
-
-	// if (cub3d->map[][])
-	// ray->posY -= 0.5;
+	(void) map;
+	(void) moveSpeed;
+	cub3d->r.posY -= 0.1 ;
 }
 
 int	handle_keypress(int keysym, t_cub3d *cub3d)
 {
-	cub3d->oldTime = cub3d->time;
-	gettimeofday(&cub3d->time, NULL);
-	cub3d->frameTime = (cub3d->time.tv_sec - cub3d->oldTime.tv_sec) / 1000.0;
-	// printf ("%f\n", 1.0/cub3d->frameTime);
 	mlx_clear_window(cub3d->ptr, cub3d->win);
-	cub3d->moveSpeed = cub3d->frameTime * 50.0;
-	printf("moveSpeed %f\n", cub3d->moveSpeed);
-	cub3d->rotSpeed = cub3d->frameTime * 3.0;
 	if (keysym == XK_d || keysym == XK_D)
 		cub3d->r.posX += 0.5;
 	else if (keysym == XK_W || keysym == XK_w)
@@ -76,16 +55,30 @@ void	*display_game(t_cub3d *cub3d)
 	return (cub3d->ptr);
 }
 
-void	*display_player(t_cub3d *game)
+void	*display_player(t_cub3d *cub3d)
 {
 	int	x;
 	int	y;
+	int	vx;
+	int	vy;
 
-	x = game->r.posX * 16;
-	y = game->r.posY * 16;
-	mlx_put_image_to_window(game->ptr, game->win,
-		game->mini.icon.pointer, x, y);
-	return (game->ptr);
+	x = cub3d->r.posX * 16 + 6;
+	y = cub3d->r.posY * 16 + 6;
+	// 0xFFFF64
+	// mlx_pixel_put(cub3d->ptr, cub3d->win, x, y, 0xFF0000);
+	int	test = 0;
+	vx = x + 1;
+	vy = y + 1;
+	while (test < 10)
+	{
+		vx = vx + cub3d->r.dirX;
+		vy = vy + cub3d->r.dirY;
+		mlx_pixel_put(cub3d->ptr, cub3d->win, vx, vy, 0xFFFF64);
+		test++;
+	}
+	mlx_put_image_to_window(cub3d->ptr, cub3d->win,
+		cub3d->mini.icon.pointer, x, y);
+	return (cub3d->ptr);
 }
 
 void	render(t_cub3d cub3d)
@@ -109,3 +102,25 @@ int	ft_raycast(t_cub3d cub3d)
 	mlx_loop(cub3d.ptr);
 	return (0);
 }
+
+
+// void	ft_move_up(char **map, t_cub3d *data, double moveSpeed)
+// {
+// 	// data->r.posY -= 0.5;
+
+// 	// (void) map;
+// 	// (void) moveSpeed;
+// 	if(map[(int)(data->r.posX + data->r.dirX * moveSpeed)][(int)data->r.posY] == 0) 
+// 		data->r.posX += data->r.dirX * moveSpeed * 16;
+//     if(map[(int)(data->r.posX)][(int)(data->r.posY + data->r.dirY * moveSpeed)] == 0)
+// 		data->r.posY += data->r.dirY * moveSpeed * 16;
+// 	printf("posX = %f ", data->r.posX);
+// 	printf("posY = %f\n", data->r.posY);
+
+// 	printf("dirX = %f && dirX * MS = %f\n", data->r.dirX, data->r.dirX * moveSpeed);
+// 	printf("dirY = %f \n", data->r.dirY);
+
+
+// 	// if (cub3d->map[][])
+// 	// ray->posY -= 0.5;
+// }
